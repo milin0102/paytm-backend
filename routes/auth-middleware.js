@@ -8,6 +8,12 @@ const signUpBodySchema = zod.object({
     password:zod.string()
 })
 
+const updateBodySchema = zod.object({
+    firstName:zod.string(),
+    lastName:zod.string()
+})
+
 module.exports = {
-    signUpBodySchema
+    signUpBodySchema,
+    updateBodySchema
 }

@@ -4,39 +4,14 @@ const mongoose = require("mongoose")
 const User = require("../dal/user");
 const { authenticateToken } = require("../middleware");
 const router = express.Router();
+const {getBalance} = require("../controllers/accountController")
+
 
 router.get( "/", (req, res) => {
     res.status(200).send( "Welcome to the Accounts API")
 })
 
-router.post("/balance",async (req,res,next)=>{
-    console.log("request body: " + req.body.userId)
-    try {
-        if(req.body.userId){
-            let userId= req.body.userId;
-            let whereObj = {
-                userId: req.body.userId
-            }
-            await Account.findOne(whereObj).then((response)=>{
-                if(!response){
-                    console.log("what a resp :" + response)
-                    return res.status(400).json({"message":"Account not found"});
-                }else{
-                    response.balance = response.balance/100
-                    return res.status(200).json(response);
-                }
-            }).catch((e)=>{
-                console.log("Error: "+e)
-                throw e;
-            })
-        }else{
-            res.status(411).json({"message":"userId is missing"})
-        }
-    } catch (error) {
-        console.log("Error while fetching balance");
-        throw error;
-    }
-})
+router.post("/balance",getBalance)
 
 router.post("/transfer",async (req,res)=>{
     try {
