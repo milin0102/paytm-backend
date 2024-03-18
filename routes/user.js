@@ -1,5 +1,5 @@
 const express = require("express")
-const {signUpBodySchema} = require("./auth-middleware")
+const {signUpBodySchema} = require("./request-validator")
 const User = require("../dal/user");
 const Account = require("../dal/accounts");
 const router = express.Router()

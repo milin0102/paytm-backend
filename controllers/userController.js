@@ -1,7 +1,8 @@
 const express = require("express");
 const User = require("../dal/user")
 const jwt = require("jsonwebtoken");
-const {signUpBodySchema , updateBodySchema} = require("../routes/auth-middleware")
+const {signUpBodySchema , updateBodySchema} = require("../routes/request-validator")
+
 
 async function getFilteredUsers(req,res){
     try {
@@ -17,7 +18,7 @@ async function getFilteredUsers(req,res){
         console.log(whereObj.$or[0].firstName);
         await User.find(whereObj).then((users)=>{
             let finalRes = []
-            console.log(users)
+            //console.log(users)
             if(users?.length){
                 finalRes = users.map((user)=>{
                     return {
